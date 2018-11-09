@@ -1,6 +1,11 @@
 const resolvers = {
-  Query: {
-    hello: () => "Hello world!"
+  Query: { 
+    getToken: (_, variables, a) => {
+        // (Login) Getting token by id, pw
+        // token 생성~~
+        console.log(`id: ${variables.id}`);
+        return null;
+    }
   }
 };
 

@@ -1,20 +1,15 @@
-type Query {
-    hello: String!
-}
 
 type User {
-    id: String!
-    pw: String!
-    nickname: String!
+  id: String!
+  pw: String!
+  nickname: String!
 }
 
 type Article {
-    writerId: String!
-    title: String!
-    content: String!
-    createdAt: DateTime!
+  writerId: String!
+  title: String!
+  content: String!
 }
-
-type Mutation {
-    
-}
+type Query {
+  Login(id: String!, pw: String!): User
+} 
