@@ -11,5 +11,5 @@ type Article {
   content: String!
 }
 type Query {
-  Login(id: String!, pw: String!): User
-} 
+  getToken(id: String!, pw: String!): User
+}
