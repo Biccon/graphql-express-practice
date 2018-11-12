@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import config from "./config";
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 80;
 
 import resolvers from "./graphql/resolvers";
 
@@ -29,8 +29,8 @@ app.use("/api", require("./routes/api"));
 
 server.applyMiddleware({ app });
 
-app.listen({ port: 4000 }, () =>
-  console.log(`Server ready at http://localhost:4000${server.graphqlPath}`)
+app.listen({ port }, () =>
+  console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`)
 );
 
 mongoose.connect(
