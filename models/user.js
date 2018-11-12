@@ -26,7 +26,7 @@ User.methods.verify = function(password) {
   return this.password === password;
 };
 
-User.method.assignAdmin = function() {
+User.methods.assignAdmin = function() {
   this.admin = true;
   return this.save();
 };
