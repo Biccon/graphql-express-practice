@@ -24,10 +24,7 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.set("jwt-secret", config.secret);
 
-app.get("/", (req, res) => {
-  res.send("hello jwt");
-});
-
+//app.use("/", require("./routes/comment"));
 app.use("/api", require("./routes/api"));
 
 server.applyMiddleware({ app });

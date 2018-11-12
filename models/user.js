@@ -30,3 +30,5 @@ User.method.assignAdmin = function() {
   this.admin = true;
   return this.save();
 };
+
+module.exports = mongoose.model('User', User);
