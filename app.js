@@ -8,13 +8,10 @@ import mongoose from "mongoose";
 import config from "./config";
 const port = process.env.PORT || 80;
 
-import resolvers from "./graphql/resolvers";
-
-const typeDefs = importSchema("./graphql/schema.graphql");
+import schema from './graphql/schema';
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers
+ schema
 });
 
 const app = express();
@@ -23,9 +20,6 @@ app.use(bodyParser.json());
 
 app.use(morgan("dev"));
 app.set("jwt-secret", config.secret);
-
-//app.use("/", require("./routes/comment"));
-app.use("/api", require("./routes/api"));
 
 server.applyMiddleware({ app });
 
