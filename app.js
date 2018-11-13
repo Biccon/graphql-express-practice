@@ -1,6 +1,5 @@
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
-import { importSchema } from "graphql-import";
 
 import bodyParser from "body-parser";
 import morgan from "morgan";

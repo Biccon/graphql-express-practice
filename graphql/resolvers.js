@@ -1,9 +1,12 @@
+import User from '../models/user';
+import jsonwebtoken from 'jsonwebtoken';
+
 const resolvers = {
   Query: { 
-    getToken: (_, variables, a) => {
+    me: (_, {user}, ctx) => {
         // (Login) Getting token by id, pw
         // token 생성~~
-        console.log(`id: ${variables.id}`);
+        console.log(`id: ${user}`);
         return null;
     }
   }
