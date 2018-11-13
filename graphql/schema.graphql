@@ -1,4 +1,3 @@
-
 type User {
   id: String!
   pw: String!
@@ -10,6 +9,13 @@ type Article {
   title: String!
   content: String!
 }
+
 type Query {
-  getToken(id: String!, pw: String!): User
+  me: User
+  myArticles: [Article]
+}
+
+type Mutations {
+  register(id: String!, pw: String!): User
+  login(id: String!, pw: String!): String
 }
