@@ -33,7 +33,6 @@ app.use("/api", require("./routes/api"));
 server.applyMiddleware({ app });
 
 app.listen({ port }, () =>
-  console.log('change accured test2');
   console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`)
 );
 
