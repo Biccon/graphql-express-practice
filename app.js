@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 app.use(morgan("dev"));
 app.set("jwt-secret", config.secret);
+//
 
 server.applyMiddleware({ app });
 
