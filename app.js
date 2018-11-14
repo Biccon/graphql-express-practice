@@ -4,6 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import morgan from "morgan";
+import jwt from 'jsonwebtoken';
 
 import config from "./config";
 import schema from "./graphql/schema";
