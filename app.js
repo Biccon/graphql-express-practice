@@ -4,7 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import morgan from "morgan";
-import jwt from 'jsonwebtoken';
+import jwt from 'express-jwt';
 
 import config from "./config";
 import schema from "./graphql/schema";
@@ -17,7 +17,8 @@ app.use(bodyParser.json());
 app.use(morgan("dev"));
 
 const auth = jwt({
-  secret: config.secret
+  secret: config.secret,
+  credentialsRequired: false
 })
 
 const path = "/api";
