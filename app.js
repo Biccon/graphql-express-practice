@@ -4,12 +4,11 @@ import { ApolloServer } from "apollo-server-express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import morgan from "morgan";
-import jwt from 'express-jwt';
+import jwt from "express-jwt";
 
 import config from "./config";
 import schema from "./graphql/schema";
 const port = process.env.PORT || 80;
-
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,7 +18,7 @@ app.use(morgan("dev"));
 const auth = jwt({
   secret: config.secret,
   credentialsRequired: false
-})
+});
 
 const path = "/api";
 
