@@ -19,13 +19,12 @@ const authMiddleware = jwt({
   secret: config.secret,
   credentialsRequired: false
 });
+app.use(authMiddleware); // apollo에 적용할지 app(express)에 적용할지 > app에 적용하는것
 
 const path = "/api";
-
 const apollo = new ApolloServer({
   schema
 });
-app.use(authMiddleware); // apollo에 적용할지 app(express)에 적용할지
 apollo.applyMiddleware({ app, path });
 
 app.listen(port, () =>

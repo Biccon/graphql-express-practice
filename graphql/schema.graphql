@@ -12,10 +12,8 @@ type Article {
 
 type Query {
   me: User
-  myArticles: [Article]
 }
 
-type Mutations {
-  register(id: String!, pw: String!): User
+type Mutation {
   login(id: String!, pw: String!): String
 }

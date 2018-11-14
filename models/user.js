@@ -2,28 +2,37 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const User = new Schema({
-  username: String,
-  password: String,
-  admin: { type: Boolean, default: false }
+  id: String,
+  pw: String,
+  email: String,
+  admin: { type: Boolean, default: false },
+  /*
+  updatedAt: new Date(),
+  $setOnInsert: {
+    createdAt: new Date()
+  }
+  */
 });
 
-User.statics.create = function(username, password) {
+User.statics.create = function(id, pw, email) {
   const user = new this({
-    username,
-    password
+    id,
+    pw,
+    email,
+    createdAt: new Date()
   });
 
   return user.save();
 };
 
-User.statics.findOneByUsername = function(username) {
+User.statics.findOneByid = function(id) {
   return this.findOne({
-    username
+    id
   }).exec();
 };
 
-User.methods.verify = function(password) {
-  return this.password === password;
+User.methods.verify = function(pw) {
+  return this.pw === pw;
 };
 
 User.methods.assignAdmin = function() {
