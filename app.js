@@ -1,5 +1,5 @@
 import express from "express";
-import { ApolloServer } from "apollo-server-express";
+import { graphqlExpress, ApolloServer } from "apollo-server-express";
 
 import bodyParser from "body-parser";
 import morgan from "morgan";
@@ -9,7 +9,7 @@ const port = process.env.PORT || 80;
 
 import schema from './graphql/schema';
 
-const server = new ApolloServer({
+const server = new graphqlExpress({
  schema
 });
 
@@ -21,9 +21,10 @@ app.use(morgan("dev"));
 app.set("jwt-secret", config.secret);
 //
 
-server.applyMiddleware({ app });
+app.use('/api', server);
+//server.applyMiddleware({ app });
 
-app.listen({ port }, () =>
+app.listen(port, () =>
   console.log(`Server ready at http://localhost:${port}${server.graphqlPath}`)
 );
 
