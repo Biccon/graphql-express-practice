@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
-const auth = jwt({
+const authMiddleware = jwt({
   secret: config.secret,
   credentialsRequired: false
 });
@@ -25,7 +25,7 @@ const path = "/api";
 const apollo = new ApolloServer({
   schema
 });
-apollo.use(authMiddleware); // apollo에 적용할지 app(express)에 적용할지
+app.use(authMiddleware); // apollo에 적용할지 app(express)에 적용할지
 apollo.applyMiddleware({ app, path });
 
 app.listen(port, () =>
