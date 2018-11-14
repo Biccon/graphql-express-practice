@@ -7,10 +7,10 @@ import mongoose from "mongoose";
 import config from "./config";
 const port = process.env.PORT || 80;
 
-import schema from './graphql/schema';
+import schema from "./graphql/schema";
 
-const server = new graphqlExpress({
- schema
+const server = graphqlExpress({
+  schema
 });
 
 const app = express();
@@ -18,10 +18,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(morgan("dev"));
-app.set("jwt-secret", config.secret);
+//app.set("jwt-secret", config.secret);
 //
 
-app.use('/api', server);
+app.use("/api", server);
 //server.applyMiddleware({ app });
 
 app.listen(port, () =>
