@@ -2,8 +2,10 @@ import User from "../models/user";
 
 exports.login = (_, { id, pw }) => {
   console.log('id : %s, pw :%s', id, pw);
-  const user = User.findOneById(id);
-  console.log(user);
+  const user = User.findOneByid(id);
+  
+  
+  user.then()
   if (!user) {
     throw new Error("No user with that email");
   }
@@ -14,6 +16,7 @@ exports.login = (_, { id, pw }) => {
     throw new Error(`pw err? ${pw} / ${user.pw} || ${valid}`);
   }
 
+  const onLogin = (user) => {}
   // return json web token
   return jsonwebtoken.sign(
     {
@@ -23,6 +26,7 @@ exports.login = (_, { id, pw }) => {
     config.secret,
     { expiresIn: config.expiresIn }
   );
+
 };
 
 exports.register = (_, { id, pw, email }) => {
