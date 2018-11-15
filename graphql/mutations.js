@@ -10,7 +10,7 @@ exports.login = (_, { id, pw }) => {
   const valid = pw === user.pw;
 
   if (!valid) {
-    throw new Error("Incorrect password");
+    throw new Error(`pw err? ${pw} / ${user.pw} || ${valid}`);
   }
 
   // return json web token
