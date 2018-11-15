@@ -2,7 +2,7 @@ import User from "../models/user";
 
 exports.login = (_, { id, pw }) => {
   console.log('id : %s, pw :%s', id, pw);
-  const user = User.findOne({ where: { id } });
+  const user = User.findOneById(id);
   console.log(user);
   if (!user) {
     throw new Error("No user with that email");
