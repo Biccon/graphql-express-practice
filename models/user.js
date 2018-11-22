@@ -25,7 +25,7 @@ User.statics.create = function(id, pw, email) {
   return user.save();
 };
 
-User.statics.findOneByid = function(id) {
+User.statics.findOneById = function(id) {
   return this.findOne({
     id
   }).exec();

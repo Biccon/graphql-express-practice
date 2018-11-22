@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import jwt from "express-jwt";
+import User from './models/user.js';
 
 import config from "./config";
 import schema from "./graphql/schema";
@@ -23,7 +24,14 @@ app.use(authMiddleware); // apollo에 적용할지 app(express)에 적용할지 
 
 const path = "/api";
 const apollo = new ApolloServer({
-  schema
+  schema,
+  context: ({req}) => {
+	  const token = req.headers.authrozations || '';
+
+	  const user = null; // getUser(token)
+
+	  return {user}
+  },
 });
 apollo.applyMiddleware({ app, path });
 

@@ -1,20 +1,30 @@
 import User from "../models/user";
+import jsonwebtoken from 'jsonwebtoken';
+import config from '../config';
 
 exports.login = (_, { id, pw }) => {
-  console.log('id : %s, pw :%s', id, pw);
-  const user = User.findOneById(id);
-  console.log(user);
-  if (!user) {
-    throw new Error("No user with that email");
-  }
+  const secret = config.secret;
+	const check = (user) => {
+		if(!user){
+			throw new Error('login failed');
+		} else {
+			if(user.verify(pw)){
+				const p = new Promise((res, rej) => {
+					jsonwebtoken.sign({
+						id:user.id,
+					pw:user.pw
+					},
+					config.secret,
+						{expiresIn: config.expiresIn})
+				})
 
-  const valid = pw === user.pw;
+				return p
+			} else {
+				throw new Error('login failed');
+			}
+		}
+	}
 
-  if (!valid) {
-    throw new Error(`pw err? ${pw} / ${user.pw} || ${valid}`);
-  }
-
-  // return json web token
   return jsonwebtoken.sign(
     {
       id: user.id,
