@@ -20,6 +20,7 @@ const authMiddleware = jwt({
   secret: config.secret,
   credentialsRequired: false
 });
+app.set('jwt-secret', config.secret)
 app.use(authMiddleware); // apollo에 적용할지 app(express)에 적용할지 > app에 적용하는것
 
 const path = "/api";
@@ -27,10 +28,19 @@ const apollo = new ApolloServer({
   schema,
   context: ({req}) => {
 	  const token = req.headers.authorizations || '';
-	console.log('user token is',token);
+	  
+	  const p = new Promise(
+		(resolve, reject) => {
+			jwt.verify(token, req.app.get('jwt-secret'), (err, decoded) => {
+				if(err) reject(err)
+				resolve(decoded)
+			})
+		}
+	  );
 	  const user = null; // getUser(token)
-
-	  return {user}
+	  return p.then((decoded) => {
+		return {decoded}
+	  });
   },
 });
 apollo.applyMiddleware({ app, path });
