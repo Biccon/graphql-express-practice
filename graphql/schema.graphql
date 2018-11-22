@@ -1,7 +1,8 @@
 type User {
   id: String!
-  pw: String!
   nickname: String!
+  admin: Boolean
+  email: String
 }
 
 type Article {

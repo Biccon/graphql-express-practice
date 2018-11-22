@@ -26,8 +26,8 @@ const path = "/api";
 const apollo = new ApolloServer({
   schema,
   context: ({req}) => {
-	  const token = req.headers.authrozations || '';
-
+	  const token = req.headers.authorizations || '';
+	console.log('user token is',token);
 	  const user = null; // getUser(token)
 
 	  return {user}
