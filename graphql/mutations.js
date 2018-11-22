@@ -4,35 +4,39 @@ import config from '../config';
 
 exports.login = (_, { id, pw }) => {
   const secret = config.secret;
-	const check = (user) => {
-		if(!user){
-			throw new Error('login failed');
+  const check = (user) => {
+	if(!user){
+		throw new Error('login failed');
+	} else {
+		if(user.verify(pw)){
+			const p = new Promise((res, rej) => {
+				console.log(user);
+				const token = jsonwebtoken.sign({
+					id:user.id,
+					nickname:user.nickname,
+					email:user.email,
+					admin:user.admin
+				},
+				config.secret,
+				{expiresIn: config.expiresIn});
+				res(token)
+			}, (err, token) => {
+				if(err) reject(err)
+				res(token)
+			})
+			return p
 		} else {
-			if(user.verify(pw)){
-				const p = new Promise((res, rej) => {
-					jsonwebtoken.sign({
-						id:user.id,
-					pw:user.pw
-					},
-					config.secret,
-						{expiresIn: config.expiresIn})
-				})
-
-				return p
-			} else {
-				throw new Error('login failed');
-			}
+			throw new Error('login failed');
 		}
 	}
-
-  return jsonwebtoken.sign(
-    {
-      id: user.id,
-      pw: user.pw
-    },
-    config.secret,
-    { expiresIn: config.expiresIn }
-  );
+  };
+  
+  return User.findOne({id})
+	.then(check)
+	.then((token) => {
+		console.log('created token', token);
+		return token;
+	});
 };
 
 exports.register = (_, { id, pw, email }) => {
