@@ -18,7 +18,7 @@ exports.login = (_, { id, pw }) => {
 					admin:user.admin
 				},
 				config.secret,
-				{expiresIn: config.expiresIn});
+				{expiresIn: '1y'});
 				res(token)
 			}, (err, token) => {
 				if(err) reject(err)

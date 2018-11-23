@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import jwt from "express-jwt";
+import jsonwebtoken from 'jsonwebtoken';
 import User from './models/user.js';
 
 import config from "./config";
@@ -28,19 +29,23 @@ const apollo = new ApolloServer({
   schema,
   context: ({req}) => {
 	  const token = req.headers.authorizations || '';
-	  
-	  const p = new Promise(
-		(resolve, reject) => {
-			jwt.verify(token, req.app.get('jwt-secret'), (err, decoded) => {
-				if(err) reject(err)
-				resolve(decoded)
-			})
-		}
-	  );
+	  	
+	  if(token) {
+		try {
+          		const decoded = jsonwebtoken.verify(token, req.app.get('jwt-secret'))
+	  		return {user: decoded};
+		  } catch(err){
+			  console.log(err);
+		  }
+	  }
+	  return null;
+	  /*
 	  const user = null; // getUser(token)
 	  return p.then((decoded) => {
-		return {decoded}
+		return {user:decoded}
 	  });
+	  */
+
   },
 });
 apollo.applyMiddleware({ app, path });
