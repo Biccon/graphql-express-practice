@@ -17,4 +17,5 @@ type Query {
 
 type Mutation {
   login(id: String!, pw: String!): String
+  register(id: String!, pw: String!, nickname: String!, email: String!): String
 }
