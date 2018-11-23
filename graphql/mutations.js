@@ -4,6 +4,7 @@ import config from '../config';
 
 exports.login = async (_, { id, pw }) => {
   const user = await User.findOne({id});
+  if(!user) return null;
   if(user.verify(pw)){
 	const token = jsonwebtoken.sign({
 			id: user.id,

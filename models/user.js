@@ -6,7 +6,8 @@ const User = new Schema({
   pw: String,
   email: String,
   admin: { type: Boolean, default: false },
-  /*
+  nickname: String,
+	/*
   updatedAt: new Date(),
   $setOnInsert: {
     createdAt: new Date()
